@@ -119,7 +119,6 @@
 			isa = PBXGroup;
 			children = (
 				A528332421A3265100A98FE2 /* AppDelegate.swift */,
-				A528332B21A3265200A98FE2 /* Assets.xcassets */,
 				A528332D21A3265200A98FE2 /* LaunchScreen.storyboard */,
 				A528333021A3265200A98FE2 /* Info.plist */,
 			);
@@ -144,6 +143,7 @@
 		A528333721A327D600A98FE2 /* Resource */ = {
 			isa = PBXGroup;
 			children = (
+				A528332B21A3265200A98FE2 /* Assets.xcassets */,
 			);
 			path = Resource;
 			sourceTree = "<group>";
