@@ -1,5 +1,5 @@
 //
-//  RealmStorage.swift
+//  RealmHandler.swift
 //  Repos
 //
 //  Created by Sergey Blinov on 11/13/18.
@@ -10,31 +10,23 @@ import Foundation
 import RealmSwift
 import Realm
 
-class RealmStorage {
-    static let shared = RealmStorage()
+class RealmHandler {
+    static let shared = RealmHandler()
     let realm = try! Realm()
     let serialQueue = DispatchQueue(label: "com.gitItemsQueue")
     
     func saveGitItems(_ items: [GitRepo]) {
-        serialQueue.sync {
-            do {
-                try realm.write { realm.add(items) }
-            }catch let error {
-                print(error)
-            }
-        }
-    }
-    
-    func gitItems(closure: @escaping([GitRepo]?) -> Void?) {
-        serialQueue.sync {
-            closure(Array(realm.objects(GitRepo.self)))
+        do {
+            try realm.write { realm.add(items) }
+        }catch let error {
+            print(error)
         }
     }
     
     func clearItems() {
         serialQueue.sync {
             do {
-                try realm.write {  realm.deleteAll() }
+                try realm.write { realm.delete(realm.objects(GitRepo.self)) }
             }catch let error {
                 print(error)
             }

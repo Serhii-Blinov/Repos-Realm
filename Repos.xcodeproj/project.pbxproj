@@ -26,7 +26,7 @@
 		A528335421A3284D00A98FE2 /* Page.swift in Sources */ = {isa = PBXBuildFile; fileRef = A528335121A3284D00A98FE2 /* Page.swift */; };
 		A528335621A328A400A98FE2 /* ErrorPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = A528335521A328A400A98FE2 /* ErrorPresenter.swift */; };
 		A528335821A328B000A98FE2 /* ConstantsConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = A528335721A328B000A98FE2 /* ConstantsConfig.swift */; };
-		A528335A21A32C3B00A98FE2 /* RealmStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = A528335921A32C3B00A98FE2 /* RealmStorage.swift */; };
+		A528335A21A32C3B00A98FE2 /* RealmHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = A528335921A32C3B00A98FE2 /* RealmHandler.swift */; };
 		A528335C21A32D1800A98FE2 /* RepoListDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = A528335B21A32D1800A98FE2 /* RepoListDataSource.swift */; };
 		A528335F21A32D3C00A98FE2 /*  GitRepoViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A528335E21A32D3C00A98FE2 /*  GitRepoViewModel.swift */; };
 		A528336521A32D6C00A98FE2 /* UIView+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = A528336121A32D6C00A98FE2 /* UIView+Extensions.swift */; };
@@ -63,7 +63,7 @@
 		A528335121A3284D00A98FE2 /* Page.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Page.swift; sourceTree = "<group>"; };
 		A528335521A328A400A98FE2 /* ErrorPresenter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ErrorPresenter.swift; sourceTree = "<group>"; };
 		A528335721A328B000A98FE2 /* ConstantsConfig.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ConstantsConfig.swift; sourceTree = "<group>"; };
-		A528335921A32C3B00A98FE2 /* RealmStorage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RealmStorage.swift; sourceTree = "<group>"; };
+		A528335921A32C3B00A98FE2 /* RealmHandler.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RealmHandler.swift; sourceTree = "<group>"; };
 		A528335B21A32D1800A98FE2 /* RepoListDataSource.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RepoListDataSource.swift; sourceTree = "<group>"; };
 		A528335E21A32D3C00A98FE2 /*  GitRepoViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = " GitRepoViewModel.swift"; sourceTree = "<group>"; };
 		A528336121A32D6C00A98FE2 /* UIView+Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIView+Extensions.swift"; sourceTree = "<group>"; };
@@ -130,7 +130,7 @@
 			children = (
 				A528336D21A3346400A98FE2 /* UI */,
 				A528336021A32D6C00A98FE2 /* Extensions */,
-				A528335921A32C3B00A98FE2 /* RealmStorage.swift */,
+				A528335921A32C3B00A98FE2 /* RealmHandler.swift */,
 				A528335721A328B000A98FE2 /* ConstantsConfig.swift */,
 				A528335521A328A400A98FE2 /* ErrorPresenter.swift */,
 				A528335D21A32D3C00A98FE2 /* ViewModels */,
@@ -361,7 +361,7 @@
 				A528335321A3284D00A98FE2 /* GitRepoStore.swift in Sources */,
 				A528336721A32D6C00A98FE2 /* String+Trim.swift in Sources */,
 				A528337021A3351D00A98FE2 /* MainVC.swift in Sources */,
-				A528335A21A32C3B00A98FE2 /* RealmStorage.swift in Sources */,
+				A528335A21A32C3B00A98FE2 /* RealmHandler.swift in Sources */,
 				A528334A21A327E700A98FE2 /* GetRepoEndpoint.swift in Sources */,
 				A528334921A327E700A98FE2 /* Endpoint.swift in Sources */,
 				A528334421A327E700A98FE2 /* NetworkOperation.swift in Sources */,

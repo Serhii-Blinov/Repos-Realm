@@ -7,6 +7,8 @@
 //
 
 import UIKit
+import Realm
+import RealmSwift
 
 protocol GitRepoLoadingDelegate: class {
     func beginLoadItems()
@@ -19,6 +21,12 @@ class GitRepoListDataSource: NSObject {
     private var gitRepoStore: GitRepoStore!
     private var items: [GitRepo] = []
     private weak var loadingDelegate: GitRepoLoadingDelegate?
+    let realm = try! Realm()
+    var notificationToken: NotificationToken? = nil
+    
+    deinit {
+        notificationToken?.invalidate()
+    }
     
     init(tableView: UITableView, loadingDelegate: GitRepoLoadingDelegate) {
         super.init()
@@ -27,6 +35,7 @@ class GitRepoListDataSource: NSObject {
         self.tableView?.delegate = nil
         self.loadingDelegate = loadingDelegate
         self.setupGitRepoStore()
+        self.setupObserveItems()
     }
     
     func cancelLoad() -> Void {
@@ -36,7 +45,6 @@ class GitRepoListDataSource: NSObject {
     func clearItems() -> Void {
         self.items = [GitRepo]()
         self.gitRepoStore.clearItems()
-        self.tableView?.reloadData()
     }
     
     func loadRepositories(_ query: String) -> Void {
@@ -55,17 +63,39 @@ class GitRepoListDataSource: NSObject {
     }
     
     private func setupGitRepoStore() {
-        self.gitRepoStore = GitRepoStore(block: { [weak self] items in
-            guard let items = items, let strongSlef = self else { return }
-            strongSlef.insert(items)
-            },service: API.gitRepoServise)
+        self.gitRepoStore = GitRepoStore(service: API.gitRepoServise)
+    }
+    
+    func setupObserveItems() {
+        let results = realm.objects(GitRepo.self)
+        self.items = Array(results)
+        
+        notificationToken = results.observe { [weak self] (changes: RealmCollectionChange) in
+            guard let tableView = self?.tableView, let strongSelf = self else { return }
+            self?.items = Array(strongSelf.realm.objects(GitRepo.self))
+            switch changes {
+            case .initial:
+                tableView.reloadData()
+            case .update(_, let deletions, let insertions, let modifications):
+                tableView.beginUpdates()
+                tableView.insertRows(at: insertions.map({ IndexPath(row: $0, section: 0) }),
+                                     with: .automatic)
+                tableView.deleteRows(at: deletions.map({ IndexPath(row: $0, section: 0)}),
+                                     with: .automatic)
+                tableView.reloadRows(at: modifications.map({ IndexPath(row: $0, section: 0) }),
+                                     with: .automatic)
+                tableView.endUpdates()
+            case .error(let error):
+                fatalError("\(error)")
+            }
+        }
     }
 }
 
 extension GitRepoListDataSource: UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return self.items.count
+        return realm.objects(GitRepo.self).count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -75,21 +105,5 @@ extension GitRepoListDataSource: UITableViewDataSource {
         cell.fillWith(cellModel)
         
         return cell
-    }
-}
-
-private extension GitRepoListDataSource {
-    
-    func insert(_ items:[GitRepo]) {
-        for object in items {
-            self.items.insert(object, at: self.items.count)
-            self.insertRow(index: self.items.count - 1)
-        }
-    }
-    
-    func insertRow(index: Int) {
-        self.tableView?.beginUpdates()
-        self.tableView?.insertRows(at: [IndexPath(row: index, section: 0)], with: .automatic)
-        self.tableView?.endUpdates()
     }
 }

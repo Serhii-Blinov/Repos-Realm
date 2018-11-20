@@ -12,13 +12,11 @@ typealias CompletionHandler<T> = (Result<[T]>) -> Void
 
 class GitRepoStore {
     private var gitRepoService: GitRepoServiceProtocol
-    private var storage: RealmStorage
-    private var block: (([GitRepo]?) -> Void?)
+    private var realmHandler: RealmHandler
     
-    init(block: @escaping (([GitRepo]?) -> Void), service: GitRepoServiceProtocol, storage: RealmStorage = RealmStorage.shared) {
+    init(service: GitRepoServiceProtocol, realmHandler: RealmHandler = RealmHandler.shared) {
         self.gitRepoService = service
-        self.storage = storage
-        self.block = block
+        self.realmHandler = realmHandler
     }
     
     func getRepoItems(query: String, completionHandler: @escaping CompletionHandler<GitRepo>)  {
@@ -55,15 +53,10 @@ class GitRepoStore {
     }
     
     func saveItems(items: [GitRepo]) {
-        self.storage.saveGitItems(items)
-        self.loadItems(closure: block)
-    }
-    
-    func loadItems(closure: @escaping ([GitRepo]?) -> Void?) {
-        self.storage.gitItems(closure: closure)
+        self.realmHandler.saveGitItems(items)
     }
     
     func clearItems() {
-        self.storage.clearItems()
+        self.realmHandler.clearItems()
     }
 }
