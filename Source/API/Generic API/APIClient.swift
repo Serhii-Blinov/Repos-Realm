@@ -47,7 +47,7 @@ extension APIClient {
             let baseUrl = baseUrlComponents.url,
             var components = URLComponents(url: baseUrl, resolvingAgainstBaseURL: true)
             else {
-                  // TODO: add log
+                // TODO: add log
                 return nil
         }
         
@@ -68,7 +68,7 @@ extension APIClient {
             completion(.failure(error: APIError.client))
             return
         }
-
+        
         let task = session.dataTask(with: request) { data, response, error in
             let failWithError: (APIError) -> Void = { localizedError in
                 completion(.failure(error: localizedError))

@@ -25,7 +25,6 @@ class GitRepoStore {
         let completionOperation = BlockOperation {
             let items = collection.sorted { $0.starsCount > $1.starsCount }
             guard items.isEmpty == false else { return }
-            self.clearItems()
             self.saveItems(items: items)
         }
         

@@ -18,7 +18,7 @@ class RealmHandler {
     func saveGitItems(_ items: [GitRepo]) {
         serialQueue.sync {
             do {
-                try realm.write { realm.add(items) }
+                try realm.write { realm.add(items, update: true) }
             }catch let error {
                 print(error)
             }
