@@ -52,7 +52,6 @@ class GitRepoListDataSource: NSObject {
         self.gitRepoStore.getRepoItems(query: query) { [weak self] result in
             self?.loadingDelegate?.endLoadItems(nil)
             guard let strongSelf = self else { return }
-            strongSelf.clearItems()
             switch result {
             case .success(_):
                 break

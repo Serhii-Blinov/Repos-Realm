@@ -24,6 +24,7 @@ class GitRepoStore {
         
         let completionOperation = BlockOperation {
             let items = collection.sorted { $0.starsCount > $1.starsCount }
+            guard items.isEmpty == false else { return }
             self.clearItems()
             self.saveItems(items: items)
         }
@@ -32,7 +33,7 @@ class GitRepoStore {
             .map { (pageIndex: Int) -> (Page) in return Page(index: pageIndex, perPage: ConstantsConfig.perPage) }
         
         for page in pages {
-            let operation = self.gitRepoService.getRepoItems(page: page, query: query, completionHandler: {  result in
+            let operation = self.gitRepoService.getRepoItems(page: page, query: query, completionHandler: { result in
                 switch result {
                 case .success(let items):
                     collection.append(contentsOf: items)

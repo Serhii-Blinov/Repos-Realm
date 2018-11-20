@@ -45,6 +45,8 @@ struct ErrorPresenter {
             alertController.addAction(cancelAction)
         }
         
+        guard viewController.presentedViewController == nil else { return }
+        
         viewController.present(alertController, animated: animated, completion: completion)
     }
 }

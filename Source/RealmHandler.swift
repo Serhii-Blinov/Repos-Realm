@@ -16,10 +16,12 @@ class RealmHandler {
     let serialQueue = DispatchQueue(label: "com.gitItemsQueue")
     
     func saveGitItems(_ items: [GitRepo]) {
-        do {
-            try realm.write { realm.add(items) }
-        }catch let error {
-            print(error)
+        serialQueue.sync {
+            do {
+                try realm.write { realm.add(items) }
+            }catch let error {
+                print(error)
+            }
         }
     }
     

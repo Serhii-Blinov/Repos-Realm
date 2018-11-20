@@ -21,6 +21,7 @@ class MainVC: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        self.title = String(format: "User: %@", ConstantsConfig.gitHubUser)
         self.setupTableView()
         self.dataSource = GitRepoListDataSource(tableView: self.tableView, loadingDelegate: self)
         self.dataSource.loadRepositories(ConstantsConfig.gitHubUser)
