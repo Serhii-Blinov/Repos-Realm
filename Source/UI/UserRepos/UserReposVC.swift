@@ -8,9 +8,10 @@
 
 import UIKit
 
-class MainVC: UIViewController {
+class UserReposVC: UIViewController {
     
-    @IBOutlet weak var tableView: UITableView!{
+    @IBOutlet var changeUserNameButton: UIButton!
+    @IBOutlet var tableView: UITableView!{
         didSet {
             tableView.register(RepoTableViewCell.self)
         }
@@ -22,28 +23,29 @@ class MainVC: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         self.title = String(format: "User: %@", ConstantsConfig.gitHubUser)
-        self.setupTableView()
+        self.setupUI()
         self.dataSource = GitRepoListDataSource(tableView: self.tableView, loadingDelegate: self)
         self.dataSource.loadRepositories(ConstantsConfig.gitHubUser)
     }
     
-    func setupTableView() -> Void {
+    func setupUI() {
         self.activityIndicatorView = UIActivityIndicatorView(style: .gray)
         self.tableView.backgroundView = activityIndicatorView
+        self.navigationItem.rightBarButtonItem = UIBarButtonItem(customView: self.changeUserNameButton)
     }
     
-    func stopShowActivity() -> Void {
+    func stopShowActivity() {
         if self.activityIndicatorView.isAnimating {
             self.activityIndicatorView.stopAnimating()
         }
     }
     
-    func startShowActivity() -> Void {
+    func startShowActivity()  {
         self.activityIndicatorView.startAnimating()
     }
 }
 
-extension MainVC: GitRepoLoadingDelegate {
+extension UserReposVC: GitRepoLoadingDelegate {
     
     func beginLoadItems() {
         self.stopShowActivity()
@@ -58,7 +60,7 @@ extension MainVC: GitRepoLoadingDelegate {
             message = error.localizedDescription
         }
         
-        let errorPresenter = ErrorPresenter.init(title: ConstantsConfig.error, message: message)
+        let errorPresenter = AlertPresenter(title: ConstantsConfig.error, message: message)
         errorPresenter.present(in: self)
     }
 }

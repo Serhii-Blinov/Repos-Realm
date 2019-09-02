@@ -13,9 +13,9 @@ enum ConstantsConfig {
     static let repoItems = "repoItems"
     static let error = "Error!"
     static let errorMessage = "Error loading data"
-    static let requstsCount = 2
+    static let requstsCount = 1
     static let perPage = 10
-    static let gitHubUser = "andrew"
+    static let gitHubUser = "quericy"
 }
 
 

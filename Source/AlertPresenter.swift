@@ -8,7 +8,7 @@
 
 import UIKit
 
-struct ErrorPresenter {
+struct AlertPresenter {
     private let title: String
     private let message: String
     private let okTitle: String

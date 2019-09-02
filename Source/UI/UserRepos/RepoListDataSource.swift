@@ -69,7 +69,7 @@ class GitRepoListDataSource: NSObject {
         let results = realm.objects(GitRepo.self)
         self.items = Array(results)
         
-        notificationToken = results.observe { [weak self] (changes: RealmCollectionChange) in
+        self.notificationToken = results.observe { [weak self] (changes: RealmCollectionChange) in
             guard let tableView = self?.tableView, let strongSelf = self else { return }
             self?.items = Array(strongSelf.realm.objects(GitRepo.self))
             switch changes {
